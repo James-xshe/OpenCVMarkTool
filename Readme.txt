@@ -14,5 +14,13 @@ Previous image,
 Using keyboard input to control the program, 
 Delete false rectangle
 
+v3:
+Update:
+Add path args
+Using keyboard input to control next() image, and exit
+Target:
+Keyboard control previous img
+Delete false rectangle
+
 
  
