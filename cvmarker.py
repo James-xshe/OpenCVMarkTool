@@ -3,6 +3,7 @@ import os
 import numpy as np
 import json
 import time
+import argparse
 
 global img, point1, point2, points
 drawing = False
@@ -28,20 +29,31 @@ def OnMouse(event, x, y, flag, params):
         drawing = False
         points = (point1, point2)
 
+
+def getArgs():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('p', type=str, help='path of the image folder')
+    args = parser.parse_args()
+    return vars(args)
+
+
+
 def main():
         global img, points
         imgtypedic = {'.png', '.jpg'}
-        filenames = os.listdir('./test')
+        args = getArgs()
+        path = args['p']
+        filenames = os.listdir(path)
         for filename in filenames:
             if os.path.splitext(filename)[1] not in imgtypedic:
                 continue
 
-            if os.path.getsize(os.path.join('./test', filename) + '.txt') != 0:
-                with open(os.path.join('./test', filename) + '.txt') as f:
+            if os.path.getsize(os.path.join(path, filename) + '.txt') != 0:
+                with open(os.path.join(path, filename) + '.txt') as f:
                     js = f.read()
                     data = json.loads(js)
                     points = (tuple(data[0]), tuple(data[1]))
-            img = cv.imread(os.path.join('./test',filename))
+            img = cv.imread(os.path.join(path,filename))
 
             cv.rectangle(img, points[0], points[1], (0,0,255), 1) 
 
@@ -52,17 +64,18 @@ def main():
             cv.setMouseCallback('image', OnMouse)
             cv.imshow('image', img)
             k = cv.waitKey(0) & 0xff
-            if k == 27:
-                with open(os.path.join('./test',filename)+'.txt', mode='w') as f:
-                    f.write(json.dumps(points))
-                break
-            elif k == ord('n'):
-                with open(os.path.join('./test',filename)+'.txt', mode='w') as f:
-                    f.write(json.dumps(points))
-                    continue
-            else:
-                ## Halt the program until get the right key
-                os.system('pause')
-    
+            while(1):
+                if k == 27:
+                    with open(os.path.join(path,filename)+'.txt', mode='w') as f:
+                        f.write(json.dumps(points))
+                    return 0
+                elif k == ord('n'):
+                    with open(os.path.join(path,filename)+'.txt', mode='w') as f:
+                        f.write(json.dumps(points))
+                        break
+                ## show preivous img
+                else:
+                    k = cv.waitKey(0)
+
         cv.destroyAllWindows()
 main()
