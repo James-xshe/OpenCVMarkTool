@@ -40,42 +40,59 @@ def getArgs():
 
 def main():
         global img, points
+        points = ((0,0),(0,0))
         imgtypedic = {'.png', '.jpg'}
         args = getArgs()
         path = args['p']
         filenames = os.listdir(path)
-        for filename in filenames:
-            if os.path.splitext(filename)[1] not in imgtypedic:
-                continue
+        i = 0 
+        while(1):
+            print(i)
+            if i <= 0:
+                i = 0
 
-            if os.path.getsize(os.path.join(path, filename) + '.txt') != 0:
-                with open(os.path.join(path, filename) + '.txt') as f:
+
+            if os.path.splitext(filenames[i])[1] not in imgtypedic:
+                i += 1
+                continue
+            print(filenames[i])
+
+            try:
+                # if os.path.getsize(os.path.join(path, filenames[i]) + '.txt') != 0:
+                with open(os.path.join(path, filenames[i]) + '.txt') as f:
                     js = f.read()
                     data = json.loads(js)
                     points = (tuple(data[0]), tuple(data[1]))
-            img = cv.imread(os.path.join(path,filename))
+                    print(points)
+            except FileNotFoundError:
+                print('filenotfound')
+    
+           
+            img = cv.imread(os.path.join(path,filenames[i]))
 
-            cv.rectangle(img, points[0], points[1], (0,0,255), 1) 
+            # cv.rectangle(img, points[0], points[1], (0,0,255), 1) 
 
-            # cv.imshow('image', img)
-            # img=cv.resize(img,None,fx=0.4,fy=0.4)
+        #     # cv.imshow('image', img)
+        #     # img=cv.resize(img,None,fx=0.4,fy=0.4)
 
             cv.namedWindow('image')
             cv.setMouseCallback('image', OnMouse)
             cv.imshow('image', img)
             k = cv.waitKey(0) & 0xff
-            while(1):
-                if k == 27:
-                    with open(os.path.join(path,filename)+'.txt', mode='w') as f:
-                        f.write(json.dumps(points))
-                    return 0
-                elif k == ord('n'):
-                    with open(os.path.join(path,filename)+'.txt', mode='w') as f:
-                        f.write(json.dumps(points))
-                        break
-                ## show preivous img
-                else:
-                    k = cv.waitKey(0)
+
+            if k == 27:
+                with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
+                    f.write(json.dumps(points))
+                return 0
+            elif k == ord('n'):
+                with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
+                    f.write(json.dumps(points))
+                i += 1
+
+            elif k == ord('m'):
+                with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
+                    f.write(json.dumps(points))
+                i -= 2
 
         cv.destroyAllWindows()
 main()
