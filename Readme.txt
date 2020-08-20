@@ -22,5 +22,12 @@ Target:
 Keyboard control previous img
 Delete false rectangle
 
+v4: 
+Update:
+Keyboard control previous img
+Target:
+Load rec from txt, delete false rec
+
+
 
  
