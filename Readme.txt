@@ -1,3 +1,8 @@
+Usage:
+python cvmarker.py [path]
+"path" should be the path of a folder with images you want to mark
+
+
 v1:
 Read folder with all images
 Draw rectangle boxes around images
@@ -28,6 +33,11 @@ Keyboard control previous img
 Target:
 Load rec from txt, delete false rec
 
+v5:
+Update:
+Load rec from txt
+Delete false rec
+Set beginning and end bound
 
 
  
