@@ -47,7 +47,7 @@ def main():
         i = 0 
         while(1):
             filenames = os.listdir(path)
-            print(i)
+            # print(i)
             if i <= 0:
                 i = 0
             if i >= len(filenames):
@@ -64,9 +64,9 @@ def main():
                     js = f.read()
                     data = json.loads(js)
                     points = (tuple(data[0]), tuple(data[1]))
-                    print(points)
+                    # print(points)
             except FileNotFoundError:
-                print('filenotfound')
+                points = ((0,0),(0,0))
     
            
             img = cv.imread(os.path.join(path,filenames[i]))
