@@ -2,7 +2,6 @@ import cv2 as cv
 import os
 import numpy as np
 import json
-import time
 import argparse
 
 global img, point1, point2, points
@@ -44,13 +43,15 @@ def main():
         imgtypedic = {'.png', '.jpg'}
         args = getArgs()
         path = args['p']
-        filenames = os.listdir(path)
+        
         i = 0 
         while(1):
+            filenames = os.listdir(path)
             print(i)
             if i <= 0:
                 i = 0
-
+            if i >= len(filenames):
+                i = len(filenames) - 2
 
             if os.path.splitext(filenames[i])[1] not in imgtypedic:
                 i += 1
@@ -70,7 +71,7 @@ def main():
            
             img = cv.imread(os.path.join(path,filenames[i]))
 
-            # cv.rectangle(img, points[0], points[1], (0,0,255), 1) 
+            cv.rectangle(img, points[0], points[1], (0,0,255), 1) 
 
         #     # cv.imshow('image', img)
         #     # img=cv.resize(img,None,fx=0.4,fy=0.4)
@@ -93,6 +94,11 @@ def main():
                 with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
                     f.write(json.dumps(points))
                 i -= 2
+            
+            elif k == ord('r'):
+                points = ((0,0),(0,0))
+                with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
+                    f.write(json.dumps(points))
 
         cv.destroyAllWindows()
 main()
