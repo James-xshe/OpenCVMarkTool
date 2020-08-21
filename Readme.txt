@@ -3,21 +3,21 @@ python cvmarker.py [path]
 "path" should be the path of a folder with images you want to mark
 
 
-v1:
-Read folder with all images
-Draw rectangle boxes around images
-Create txt file containing top left and right bottom points of the images respectively
-Target: 
-Add previous func, 
-Read image file wisely from folder with images and txt and add the rectangle box within that image
+v6:
+Bug fix: Same rec in next image
 
-v2:
+v5:
 Update:
-Read image file wisely from folder with images and txt and add the rectangle box within that image
+Load rec from txt
+Delete false rec
+Set beginning and end bound
+
+
+v4: 
+Update:
+Keyboard control previous img
 Target:
-Previous image, 
-Using keyboard input to control the program, 
-Delete false rectangle
+Load rec from txt, delete false rec
 
 v3:
 Update:
@@ -27,17 +27,26 @@ Target:
 Keyboard control previous img
 Delete false rectangle
 
-v4: 
+v2:
 Update:
-Keyboard control previous img
+Read image file wisely from folder with images and txt and add the rectangle box within that image
 Target:
-Load rec from txt, delete false rec
+Previous image, 
+Using keyboard input to control the program, 
+Delete false rectangle
 
-v5:
-Update:
-Load rec from txt
-Delete false rec
-Set beginning and end bound
+
+v1:
+Read folder with all images
+Draw rectangle boxes around images
+Create txt file containing top left and right bottom points of the images respectively
+Target: 
+Add previous func, 
+Read image file wisely from folder with images and txt and add the rectangle box within that image
+
+
+
+
 
 
  
