@@ -60,7 +60,7 @@ def main():
 
             try:
                 # if os.path.getsize(os.path.join(path, filenames[i]) + '.txt') != 0:
-                with open(os.path.join(path, filenames[i]) + '.txt') as f:
+                with open(os.path.join(path,os.path.splitext(filenames[i])[0]) + '.txt') as f:
                     js = f.read()
                     data = json.loads(js)
                     points = (tuple(data[0]), tuple(data[1]))
@@ -82,22 +82,22 @@ def main():
             k = cv.waitKey(0) & 0xff
 
             if k == 27:
-                with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
+                with open(os.path.join(path,os.path.splitext(filenames[i])[0])+'.txt', mode='w') as f:
                     f.write(json.dumps(points))
                 return 0
             elif k == ord('n'):
-                with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
+                with open(os.path.join(path,os.path.splitext(filenames[i])[0])+'.txt', mode='w') as f:
                     f.write(json.dumps(points))
                 i += 1
 
             elif k == ord('m'):
-                with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
+                with open(os.path.join(path,os.path.splitext(filenames[i])[0])+'.txt', mode='w') as f:
                     f.write(json.dumps(points))
                 i -= 2
             
             elif k == ord('r'):
                 points = ((0,0),(0,0))
-                with open(os.path.join(path,filenames[i])+'.txt', mode='w') as f:
+                with open(os.path.join(path,os.path.splitext(filenames[i])[0])+'.txt', mode='w') as f:
                     f.write(json.dumps(points))
 
         cv.destroyAllWindows()
